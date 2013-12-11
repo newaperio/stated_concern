@@ -12,7 +12,7 @@ gem 'stated_concern'
 
 And then execute:
 
-```ruby
+```bash
 $ bundle
 ```
 
@@ -68,9 +68,9 @@ Objects can be transitioned by calling the `#transition` method and passing the 
 
 ```ruby
 post = Post.find(1)
-post.state                      # => 'draft'
-post.transition(to: :published) # => update_attribute(state: 'published')
-post.transition(to: :deleted)   # => RuntimeError
+post.state                            # => 'draft'
+post.transition(to: :published)       # => update_attribute(state: 'published')
+post.transition(to: :deleted)         # => RuntimeError
 ```
 
 This method will raise an exception if no target option is passed or if the transition matrix returns false. *Note*: This method uses `#update_attribute`, so validations are skipped.
@@ -108,7 +108,7 @@ Stated Concern adds a number of helper methods on the including model that make 
 A general state scope and dynamic individual state scopes are defined to query for records with a specific state.
 
 ```ruby
-Post.with_state('draft') # => ActiveRecord::Association
+Post.with_state('draft')  # => ActiveRecord::Association
 Post.in_draft
 Post.in_published
 Post.in_deleted
@@ -118,16 +118,16 @@ Dynamic boolean methods are available to test whether an object is in a specific
 
 ```ruby
 post = Post.find(1)
-post.state      # => 'draft'
-post.draft?     # => true
-post.published? # => false
-post.deleted?   # => false
+post.state                # => 'draft'
+post.draft?               # => true
+post.published?           # => false
+post.deleted?             # => false
 ```
 
 A dynamic constant is also defined that contains an array of the states. This could be useful, for example, in a format validator.
 
 ```ruby
-Post::STATES # => ['draft', 'published', 'deleted']
+Post::STATES              # => ['draft', 'published', 'deleted']
 ```
 
 ## Legal
