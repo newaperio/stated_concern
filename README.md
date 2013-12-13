@@ -18,7 +18,15 @@ $ bundle
 
 See below for instructions on how to use the gem.
 
-**Please note that this gem requires a `state` string column in your database. Please make the appropriate migration as necessary.**
+**Please note that this gem requires a `state` string column in your database. Please make the appropriate migration as necessary. An example can be found below.**
+
+```ruby
+class AddStateToPost < ActiveRecord::Migration
+  def change
+    add_column :posts, :state, default: 'draft'
+  end
+end
+```
 
 ## Usage
 
