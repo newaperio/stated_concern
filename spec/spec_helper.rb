@@ -1,9 +1,8 @@
 require 'bundler/setup'
 require 'active_record'
-require 'active_support'
-require 'active_support/core_ext/string/inquiry'
 require 'database_cleaner'
-require File.join(File.dirname(__FILE__), '..', 'lib', 'stated_concern', 'statemachine')
+require File.join(File.dirname(__FILE__), '..',
+                  'lib', 'stated_concern')
 
 RSpec.configure do |config|
   config.before(:suite) do
@@ -28,15 +27,15 @@ ActiveRecord::Base.establish_connection(
 ActiveRecord::Base.connection.execute('CREATE TABLE posts (
                                         id INTEGER PRIMARY KEY,
                                         title STRING,
-                                        state STRING DEFAULT draft,
+                                        state INTEGER DEFAULT 0,
                                         created_at DATETIME,
                                         updated_at DATETIME
                                       );')
 
-                                      ActiveRecord::Base.connection.execute('CREATE TABLE topics (
+ActiveRecord::Base.connection.execute('CREATE TABLE topics (
                                         id INTEGER PRIMARY KEY,
                                         title STRING,
-                                        state STRING DEFAULT draft,
+                                        state INTEGER DEFAULT 0,
                                         created_at DATETIME,
                                         updated_at DATETIME
                                       );')

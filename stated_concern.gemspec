@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Logan Leger']
   spec.email         = ['logan@newaperio.com']
   spec.description   = 'ActiveRecord concern for representing states'
-  spec.summary       = "Stated Concern is a quick and simple implementation of a state machine using ActiveRecord concerns."
+  spec.summary       = 'Stated Concern is a quick and simple implementation of a state machine using ActiveRecord concerns.'
   spec.homepage      = 'https://github.com/newaperio/stated_concern'
   spec.license       = 'MIT'
 
@@ -19,8 +19,8 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 2.0'
 
-  spec.add_runtime_dependency 'activerecord', '~> 4.0.0'
-  spec.add_runtime_dependency 'activesupport', '~> 4.0.0'
+  spec.add_runtime_dependency 'activerecord', '~> 4.1'
+  spec.add_runtime_dependency 'activesupport', '~> 4.1'
 
   spec.add_development_dependency 'bundler', '~> 1.3'
   spec.add_development_dependency 'rake'

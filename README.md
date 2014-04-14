@@ -1,6 +1,6 @@
 # Stated Concern
 
-Stated Concern is an ActiveRecord concern for representating states. It's a quick and simple implementation of a state machine.
+Stated Concern is an ActiveRecord concern for representating states. It's a quick and simple implementation of a state machine based on ActiveRecord's [`enum`](http://api.rubyonrails.org/v4.1.0/classes/ActiveRecord/Enum.html).
 
 ## Installation
 
@@ -18,12 +18,12 @@ $ bundle
 
 See below for instructions on how to use the gem.
 
-**Please note that this gem requires a `state` string column in your database. Please make the appropriate migration as necessary. An example can be found below.**
+**Please note that this gem requires a `state` integer column in your database. Please make the appropriate migration as necessary. An example can be found below.**
 
 ```ruby
 class AddStateToPost < ActiveRecord::Migration
   def change
-    add_column :posts, :state, default: 'draft'
+    add_column :posts, :state, :integer, default: 0
   end
 end
 ```
@@ -78,7 +78,7 @@ Objects can be transitioned by calling the `#transition` method and passing the 
 post = Post.find(1)
 post.state                            # => 'draft'
 post.transition(to: :published)       # => update_attribute(state: 'published')
-post.transition(to: :deleted)         # => RuntimeError
+post.transition(to: :deleted)         # => ImproperStateTransitionError
 ```
 
 This method will raise an exception if no target option is passed or if the transition matrix returns false. *Note*: This method uses `#update_attribute`, so validations are skipped.
@@ -117,9 +117,9 @@ A general state scope and dynamic individual state scopes are defined to query f
 
 ```ruby
 Post.with_state('draft')  # => ActiveRecord::Association
-Post.in_draft
-Post.in_published
-Post.in_deleted
+Post.draft
+Post.published
+Post.deleted
 ```
 
 Dynamic boolean methods are available to test whether an object is in a specific state.
@@ -132,10 +132,10 @@ post.published?           # => false
 post.deleted?             # => false
 ```
 
-A dynamic constant is also defined that contains an array of the states. This could be useful, for example, in a format validator.
+A dynamic class method is also defined that contains an array of the states. This could be useful, for example, in a format validator.
 
 ```ruby
-Post::STATES              # => ['draft', 'published', 'deleted']
+Post.states               # => {'draft' => 0, 'published' => 1, 'deleted' => 2}
 ```
 
 ## Legal
